@@ -1,0 +1,36 @@
+Challenges when presenting:
+At the start of my presentation, I was completely thrown off when my prototype began reacting to random noises. Dealing with unexpected technical issues in real time was challenging. It disrupted my confidence, made me nervous, and diverted me from the structure I had planned.
+
+I later realised that my system had been fine-tuned for my own knocks and my testing environment. During the live demonstration, three major factors changed simultaneously: environmental noise, human rhythm, and mechanical coupling. Unfortunately, my detection logic (EMA + fixed threshold + strict timing) was not robust enough to handle those shifts
+
+What worked during testing:
+	In a quiet lab on a solid desk, a fixed threshold combined with EMA filtering and strict three-knock timing worked consistently and accurately.
+
+What likely went wrong 
+	Environment changed (noise + acoustics). The presentation environment introduced louder background noise and more resonance. (people, chairs, HVAC, echoes).
+	My fixed THRESHOLD and EMA baseline were set during quiet testing, so loud voices created spikes that looked like “knocks.”
+	Echo in a bigger room adds longer energy tails, so my debounce/timing windows could have mis-classified sustained sounds as knocks or suppress real ones.
+	Microphone boards pick up table vibrations (not just air sound). Maybe different surfaces (tables,) + where/how the box sat (firm/loose, resonant spots) could have amplified or dampened the “thud.”
+	The MAX4466 has a gain trimpot. I thought it was set high enough to catch my gentle knocks, but raised voices nearby could have crossed the same threshold.
+	My logic required EXACTLY three knocks within MIN/MAX gaps, and I trained and tested my device with the exact same rhythm throughout. 
+	My professor and the panel were not present during testing, and their knocks may have been harder/softer or off by ±100–300 ms and my state machine reset. 
+	Ultimately, the combination of fixed thresholds, strict timing, and environmental variability resulted in false positives (voices) and false negatives (unfamiliar knock patterns).
+	Documentation gaps / onboarding friction: The microphone sensor packet, label, and linked websites/platforms didn’t provide clear, end-to-end guidance (wiring diagrams, calibration advice, gain ranges, noise-floor considerations, timing heuristics). Without this, I had to infer key parameters, which increased the risk of misconfiguration under live conditions.
+
+What I learned:
+	Knock detection depends less on loudness and more on robust feature recognition, such as transient shape, duration, and spectral content, supported by adaptive thresholds that track the live noise floor.
+	Human-in-the-loop interfaces must tolerate variations in rhythm and force.
+	My prototype performed reliably in controlled tests but failed gracefully under live conditions. The live presentation exposed the limitations of a fixed-threshold, strictly timed detection system in dynamic real-world settings
+
+Next Steps:
+To improve robustness and user experience, I plan to:
+	Implement adaptive thresholds (baseline + k·σ) that respond to ambient noise levels.
+	Incorporate transient shape checks to distinguish true knocks from speech or vibration artefacts.
+	Add a brief calibration phase before use to learn the current environment.
+	Improve mechanical isolation to reduce vibration interference.
+	Design a more forgiving timing model with real-time user feedback LEDs.
+	Experiment with piezo or accelerometer sensors for more deterministic tap detection.
+	Documentation-first practice: Create a concise “quick-start” guide (wiring, calibration steps, recommended thresholds, known failure modes) for future users of this build, and contribute it back to class resources/GitHub so others avoid the same pitfalls.
+	Constructive suggestion to manufacturers: Hardware vendors could bundle (or clearly link to) practical application notes: noise-floor measurement steps, example debounce windows, surface isolation advice, annotated code for adaptive thresholds, and troubleshooting trees. Even a single-page checklist would materially reduce setup errors for beginners like myself.
+
+These enhancements will hopefully make the interaction more stable, reliable, and context-aware while still showcasing full end-to-end MQTT control of Vespera.
