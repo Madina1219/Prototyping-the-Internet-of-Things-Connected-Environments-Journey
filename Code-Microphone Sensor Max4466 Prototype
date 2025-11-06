@@ -383,3 +383,210 @@ void loop() {
 
   delay(2); // Small delay to prevent overwhelming the loop
 }
+
+
+
+
+
+
+
+# 🎤 MAX4466 3-Knock Trigger → Vespera Light Control (MQTT)
+> **Arduino MKR WiFi 1010 + MAX4466 Microphone Sensor Prototype**  
+> UCL CASA0014 – *Prototyping the Internet of Things (Connected Environments)*  
+
+![Arduino Badge](https://img.shields.io/badge/Arduino-MKR1010-blue)
+![WiFi Badge](https://img.shields.io/badge/WiFiNINA-Library-orange)
+![MQTT Badge](https://img.shields.io/badge/MQTT-PubSubClient-green)
+![IoT Badge](https://img.shields.io/badge/IoT-Connected%20Environments-lightgrey)
+
+---
+
+## 📘 Overview
+This prototype detects **exactly three knocks** using a **MAX4466 analog microphone sensor**, then triggers a **Blue → Red → Green** light sequence on the **Vespera installation** via **MQTT**.  
+
+It demonstrates how microcontrollers, sensors, and communication protocols combine to form a simple yet intelligent IoT interaction.  
+The project was built as part of my UCL *Connected Environments* MSc module — *Prototyping the Internet of Things (CASA0014)* — exploring sensor behaviour, data reliability, and environmental responsiveness.
+
+---
+
+## ⚙️ Hardware Setup
+
+### 🪛 Components
+| Component | Description |
+|------------|--------------|
+| **Arduino MKR WiFi 1010** | Main microcontroller with built-in Wi-Fi |
+| **MAX4466 Microphone Module** | Analog sound sensor detecting knocks |
+| **Vespera Light Installation** | Cloud-connected RGB light controlled via MQTT |
+| **Jumper Wires & Breadboard** | For prototyping connections |
+
+### 🔌 Wiring Diagram
+
+    +---------------------------+
+    |  Arduino MKR WiFi 1010    |
+    |---------------------------|
+    |  3.3V  ---->  VCC (MAX4466) |
+    |  GND   ---->  GND (MAX4466) |
+    |  A0    ---->  OUT (MAX4466) |
+    |---------------------------|
+    |  On-board LED = Status     |
+    +---------------------------+
+
+
+
+### Pin Summary
+| MAX4466 Pin | Arduino Pin | Function |
+|--------------|-------------|-----------|
+| **VCC** | 3.3V | Power input |
+| **GND** | GND | Ground |
+| **OUT** | A0 | Analog audio signal input |
+
+💡 *Ensure the gain potentiometer (small screw on MAX4466) is set mid-range. Too high = random triggers; too low = missed knocks.*
+
+---
+
+## 🧠 Project Behaviour
+- System LED **ON** → active and ready.  
+- Detects **EXACTLY 3 quick knocks** in rhythm.  
+- Triggers **Blue → Red → Green** sequence instantly.  
+- Ignores 1 or 2 knocks.  
+- No cooldown — ready for next sequence immediately.  
+- Sends MQTT messages to `student/CASA0014/luminaire/<lightId>`.
+
+---
+
+## 💻 Code Summary
+
+**Core Libraries Used**
+```cpp
+#include <SPI.h>
+#include <WiFiNINA.h>
+#include <PubSubClient.h>
+
+
+
+### Pin Summary
+| MAX4466 Pin | Arduino Pin | Function |
+|--------------|-------------|-----------|
+| **VCC** | 3.3V | Power input |
+| **GND** | GND | Ground |
+| **OUT** | A0 | Analog audio signal input |
+
+💡 *Ensure the gain potentiometer (small screw on MAX4466) is set mid-range. Too high = random triggers; too low = missed knocks.*
+
+---
+
+## 🧠 Project Behaviour
+- System LED **ON** → active and ready.  
+- Detects **EXACTLY 3 quick knocks** in rhythm.  
+- Triggers **Blue → Red → Green** sequence instantly.  
+- Ignores 1 or 2 knocks.  
+- No cooldown — ready for next sequence immediately.  
+- Sends MQTT messages to `student/CASA0014/luminaire/<lightId>`.
+
+---
+
+## 💻 Code Summary
+
+**Core Libraries Used**
+```cpp
+#include <SPI.h>
+#include <WiFiNINA.h>
+#include <PubSubClient.h>
+
+
+const int THRESHOLD = 30;            // Mic sensitivity
+const unsigned long DEBOUNCE_MS = 80;
+const unsigned long MIN_GAP_MS  = 100;
+const unsigned long MAX_GAP_MS  = 1200;
+const int REQUIRED_KNOCKS = 3;
+const float BASELINE_ALPHA = 0.01f;  // Exponential Moving Average
+
+
+| Step | Color | RGB         |
+| ---- | ----- | ----------- |
+| 1    | Blue  | (0, 0, 255) |
+| 2    | Red   | (255, 0, 0) |
+| 3    | Green | (0, 255, 0) |
+| 4    | Off   | (1, 1, 1)   |
+
+
+
+if (threeKnocksDetected()) {
+  Serial.println("*** 3 KNOCKS CONFIRMED – TRIGGERING LIGHTS ***");
+  send_all_color(0, 0, 255);  // Blue
+  waitWithMQTT(300);
+  send_all_color(255, 0, 0);  // Red
+  waitWithMQTT(300);
+  send_all_color(0, 255, 0);  // Green
+  waitWithMQTT(300);
+  send_all_off();
+}
+
+
+
+| Problem                     | Cause                      | Fix                                       |
+| --------------------------- | -------------------------- | ----------------------------------------- |
+| **False triggers (voices)** | Gain or threshold too high | Increase `THRESHOLD` or lower gain        |
+| **Missed knocks**           | Timing gaps too strict     | Increase `MAX_GAP_MS` slightly            |
+| **Random spikes**           | Long jumper wires          | Shorten or shield cables                  |
+| **Wi-Fi unstable**          | Weak signal                | Move closer to router or retry connection |
+
+
+💭 Reflection & Learning
+
+This prototype made me appreciate the real-world complexity of IoT devices beyond just coding:
+
+Environmental factors matter: different rooms, surfaces, and noises can drastically alter sensor behaviour.
+
+Hardware variability: breadboards, cable lengths, and table resonance affect signal clarity.
+
+Human rhythm inconsistency: users never knock in identical timing patterns.
+
+Threshold tuning is a balancing act between sensitivity and reliability.
+
+🧩 Critical Thinking & Documentation Gap
+
+The MAX4466 sensor packet and online documentation lacked clear, unified instructions on calibration, gain setting, and knock-detection applications.
+This highlights a recurring challenge in IoT prototyping — incomplete documentation from manufacturers.
+
+Manufacturers could improve user experience by:
+
+Providing wiring and calibration guides for common microcontrollers.
+
+Including reference code for noise handling and adaptive thresholds.
+
+Linking to community examples or official documentation hubs.
+
+By publishing this repository, I aim to fill that gap and support others learning about audio-based sensor systems.
+
+🧪 Future Improvements
+
+✅ Adaptive thresholding (baseline + k·σ)
+✅ Add transient shape analysis to differentiate speech vs. knock
+✅ Introduce short calibration sequence before activation
+✅ Integrate LED feedback (knock count / ready state)
+✅ Explore piezo / accelerometer as alternative knock sensors
+✅ Mechanically isolate sensor from surface resonance
+
+🧠 Key Takeaways
+
+IoT design = balancing hardware, software, and environment.
+
+Prototyping is learning — mistakes reveal design insight.
+
+Noise and rhythm tolerance are essential in human-in-the-loop systems.
+
+Adaptive systems outperform fixed thresholds.
+
+Good documentation empowers others — open-source sharing is part of IoT culture.
+
+
+📚 Credits
+
+Author: Madina Diallo
+MSc Connected Environments – University College London (UCL)
+Module: CASA0014 – Prototyping the Internet of Things
+Supervisors: Duncan Wilson & Mandy Karanja
+
+“Through making, breaking, and reflecting, I learned that IoT is not just about devices — it’s about designing interactions that adapt, listen, and make sense of the world around us.”
+— Madina Diallo
