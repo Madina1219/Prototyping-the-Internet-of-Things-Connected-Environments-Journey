@@ -1,1 +1,27 @@
+I’m here to show you my IoT prototype that turns a simple three-knock gesture into a live digital light show on the Vespera installation inside the CE lab.
+
+- In this case, acting as if I’m knocking on my neighbour door, to trigger a Merry Christmas Message.
+
+	Inside my house is a MAX4466 microphone sensor, which is the “ear” of the system.
+	It listens for vibrations and converts sound waves from a knock into an analogue electrical signal that my Arduino MKR Wi-Fi 1010, which is the brain of the system, can understand.
+	The Arduino constantly filters background noise using a moving average and detects only sharp spikes, in this case real knocks.
+	But here’s the twist: it’s programmed to react to exactly three quick knocks within a specific time 100–1200 ms window. It looks for exactly 3 knocks logic in threeKnocksDetected().One or two are not supposed to work.
+Connectivity – data flow demonstration
+	Once the Arduino confirms that pattern, it sends a small RGB data packet through MQTT, a lightweight Internet protocol for IoT.
+	The data travels via Wi-Fi to our MQTT broker, mqtt.cetools.org, on a topic that’s unique to my setup which is number 8(student/CASA0014/luminaire/8).
+	The Vespera light subscribes to this topic and instantly displays my programmed colour sequence: Blue → Red → Green.
+Showing the full chain: 
+	Sensor → Processor → Network → Light Response.
+
+- Design thinking and observations 
+	Just wanted to show something interactive and seasonal
+	friendly gesture that connects physical presence to digital space
+	Through testing, I learned that tuning sensitivity and timing was crucial. 
+too much ambient noise or a knock that is too slow resets the system.
+	I also learned how important MQTT is in enabling multiple devices to communicate in real time with minimal bandwidth, perfect for scalable IoT systems.
+- There are a few limitations:
+	Depends on stable Wi-Fi and a quiet environment, otherwise the signal may be missed.
+	The system relies heavily on a fixed THRESHOLD which is crucial constant that defines the necessary magnitude of change to register a signal as a valid event (a knock). The code uses the threshold to filter out the small, random variations of background noise while capturing the large, sudden spike of a physical impact. However, ambient noise (like a door slam or loud clap) can still lead to false positives, requiring constant calibration.
+	The entire connected environment is reliant on a stable Wi-Fi and MQTT connection. If the network fails, the system is inert.
+	But this small experiment demonstrates the essence of a connected environment, physical interaction, digital processing, and networked communication working seamlessly together.
 
