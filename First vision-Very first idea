@@ -1,0 +1,80 @@
+# First Vision: From Sketch to Concept  
+### *Early idea development for my IoT prototype – “Chrono Lumina”*
+
+---
+
+## The Spark of the Idea
+My first concept began with a simple hand-drawn sketch, an idea to **detect motion and control the Vespera lights** through a small, tangible IoT system.  
+Before touching any code or hardware, I wanted to capture how the interaction might feel in real life: an **ambient, responsive object** that reacts to presence and light, creating a sense of connection between people and their environment.
+
+At that early stage, I imagined the system as both **functional and poetic**,something that could translate subtle human gestures (like motion or sound) into light-based communication.  
+This aligned perfectly with the module’s goal of *“thinking through making”*, transforming everyday interactions into connected experiences.
+
+---
+
+## The First Sketch
+I started by drawing my initial system on paper:  
+a small enclosure containing an **Arduino MKR WiFi 1010** and a **motion sensor**, which would send a trigger signal to control **Vespera**, the shared lighting installation used in our course.
+
+- The design showed **sensor input** (motion detection) connected to **light output** (colour change on Vespera).  
+- I visualised the logic flow:  
+  *Detection → Signal → MQTT Message → Light Response.*  
+- I also noted possible **light sequences** to communicate different states — for example:
+  - Blue: system idle or waiting  
+  - Red: motion detected  
+  - Green: system active and connected  
+
+Even this first sketch helped me plan the **logical architecture** and **user interaction flow**, long before I wrote any code.
+
+---
+
+## Repurposing the Plume Light Box
+Rather than using a blank casing, I wanted my prototype to be **visually meaningful**.  
+I decided to **repurpose a decorative “plume light box”** I already had at home, a small fibre-optic light housing, to serve as the physical container for my Arduino and sensor components.
+
+This choice had several motivations:
+- It was **sustainable** (reusing an existing object instead of buying or using raw materials).  
+- It gave my prototype an **aesthetic character**, bridging art and technology.  
+- It demonstrated how **IoT can be embedded into everyday objects**, transforming them into interactive devices.
+
+The plume box’s translucent fibres glowed beautifully when lit, which inspired me to think about how light could represent *data*, *motion*, or *presence* in a subtle, human-friendly way.
+
+---
+
+## Early Considerations
+As I translated the paper idea into an actual prototype, I started identifying key challenges to explore:
+- **Which sensor to use?**  
+  I first planned to use a **PIR (Passive Infrared) motion sensor** for detecting movement, but realised calibration and timing could affect performance in live demos.  
+- **Where to place the components?**  
+  The plume light box had limited space, so I had to think about airflow, cable flexibility, and ensuring that the sensor could detect motion without obstruction.  
+- **How to connect to Vespera?**  
+  I planned to use **MQTT** as the communication bridge between my Arduino and the Vespera light system, learning how to publish and subscribe to messages in real time.  
+- **Power and wiring:**  
+  I had to consider whether to power the system via USB or external source, ensuring safety and stability during demonstrations.
+
+---
+
+## 🔄 From Vision to Iteration
+This first sketch and the plume box concept became the **foundation of my iterative design process**.  
+Over time, the idea evolved:
+- I experimented with different sensors (from PIR to microphone-based knock detection).  
+- I refined the logic, adding MQTT connectivity and state management.  
+- I learned how physical materials, sound, and light interact, both technically and emotionally.
+
+Though simple, that first drawing captured the **core of my IoT journey**: connecting the physical and digital worlds through light, motion, and creativity.
+
+---
+
+## 🧠 Reflection
+This stage taught me that **prototyping begins with imagination, not technology**.  
+A sketch is a tool for thinking , a safe space to visualise, question, and iterate before committing to circuits and code.  
+By starting on paper, I could quickly explore ideas, identify constraints, and focus on the *experience* I wanted to create rather than just the electronics.
+
+Repurposing the plume light box also reminded me that **IoT doesn’t have to mean building from scratch**, it can be about giving *new purpose* to familiar objects.
+
+---
+
+> *“Every prototype begins as a drawing, a dialogue between imagination and possibility. My first sketch wasn’t perfect, but it started the conversation between light, motion, and connection.”*  
+> — *Madina Diallo*
+
+---
