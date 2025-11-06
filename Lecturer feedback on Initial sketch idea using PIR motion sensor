@@ -1,28 +1,74 @@
-*Feedback Summary:
-.When I presented my first sketch,the lecturer appreciated the creativity and ambition behind combining two lights (the plume light box and the Vespera) into one responsive system.
-.However, I was advised to keep the interface simple because this was my first time building an IoT system and I was still learning the coding and MQTT communication basics.
+# Lecturer Feedback and Reflection – First IoT Sketch
 
-*Duncan encouraged me to:
-.Focus on understanding one sensor well (the PIR motion sensor) instead of trying to control two light outputs.
-.Prioritise data flow and MQTT connectivity over building a complex interface.
-.Ensure I could demonstrate a clear, working interaction during the short presentation time rather than multiple connected parts that might fail.
+> *Prototyping the Internet of Things (CASA0014) – UCL Connected Environments*  
+> Author: **Madina Diallo**
 
-*My Reflection:
-.At that point, I realised I was trying to do too much too soon.
-.I was excited about creating something visually impressive,making both lights react together,without yet understanding the technical feasibility or timing challenges.
+---
 
-*This feedback helped me:
-.Refocus on learning the basics of sensor input and MQTT output.
-.Simplifying my design by choosing one sensor (the PIR) and one output (the Vespera).
-.Understand that simplicity and clarity are more valuable at this stage than complexity.
+## Feedback Summary
 
-*Action Taken After Feedback:
-.Removed the plume light from my main prototype concept.
-.Decided to repurpose only the box (as a physical casing for the Arduino) instead of wiring the light itself.
-.Concentrated on getting the motion-to-light connection via MQTT working.
+When I presented my first sketch, the lecturer appreciated the **creativity and ambition** behind combining **two lights** (the *plume light box* and the *Vespera*) into one responsive system.  
 
-*Later, after testing and still facing calibration delays, I switched to a microphone sensor for a faster, simpler demonstration.
+However, I was advised to **keep the interface simple** because this was my **first time building an IoT system**, and I was still learning the basics of **coding and MQTT communication**.
 
-*Lesson Learned:
-“Good design is not about doing more,it’s about doing the essential things well.”
-This moment of feedback reshaped how I think about connected environments,it taught me that the core goal is understanding the data relationship between sensor, device, and network, before expanding to complex systems.
+---
+
+## Feedback from Duncan
+
+Duncan encouraged me to:
+- Focus on **understanding one sensor well** (the PIR motion sensor) instead of trying to control two light outputs.  
+- Prioritise **data flow and MQTT connectivity** over building a complex interface.  
+- Ensure I could **demonstrate a clear, working interaction** during the short presentation time, rather than risk having multiple connected parts that might fail.
+
+---
+
+## My Reflection
+
+At that point, I realised I was **trying to do too much too soon**.  
+I was excited about creating something visually impressive — making both lights react together — without yet understanding the **technical feasibility** or **timing challenges** involved.  
+
+That moment made me step back and remember that I was still learning how all the pieces fit together — the sensor, Arduino, data, and network communication.  
+
+---
+
+## How the Feedback Helped Me
+
+This feedback helped me:
+- Refocus on learning the **basics of sensor input and MQTT output**.  
+- Simplify my design by choosing **one sensor (the PIR)** and **one output (the Vespera)**.  
+- Understand that **simplicity and clarity** are more valuable at this stage than complexity.  
+
+I learned that even a small, reliable demonstration is more powerful than an ambitious one that doesn’t work consistently.
+
+---
+
+## Action Taken After Feedback
+
+- Removed the **plume light** from my main prototype concept.  
+- Repurposed only the **plume box casing** as a physical enclosure for the Arduino, rather than wiring the light itself.  
+- Focused entirely on getting the **motion-to-light connection** working smoothly via **MQTT**.  
+- Later, after continued testing and facing calibration delays with the PIR, I decided to **switch to a microphone sensor** for a faster and more responsive demonstration.
+
+---
+
+## Lesson Learned
+
+> “Good design is not about doing more — it’s about doing the essential things well.”
+
+This moment of feedback completely reshaped how I think about **connected environments**.  
+It taught me that the core goal is to **understand the data relationship between sensor, device, and network** before expanding into more complex systems.  
+
+I now see simplicity as the foundation of strong design — every complex idea begins with a clear, working core.
+
+---
+
+## Credits
+**Module:** CASA0014 – *Prototyping the Internet of Things*  
+**Lecturer:** Duncan Wilson  
+**Course:** MSc Connected Environments – *University College London (UCL)*  
+**Author:** *Madina Diallo*
+
+---
+
+> *“Build small, test often, and let understanding guide ambition.”*  
+> — *Madina Diallo*
