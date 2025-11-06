@@ -1,4 +1,79 @@
-.Connected the Arduino to WiFi and published “knock” data to the MQTT broker.
-.Vespera subscribes to the topic and lights up blue-Red-Green when a knock is detected.
-.Demonstrates real-time interaction, sensor-data-network and response.
-.Data visualisation is powerful, it makes invisible signals visible.
+# Connecting to WiFi and MQTT – Real-Time IoT Interaction  
+### *Demonstrating live communication between Arduino, sensor data, and Vespera lighting system.*
+
+---
+
+## Overview
+This stage focused on connecting my **Arduino MKR WiFi 1010** to the internet and enabling real-time communication with the **MQTT broker**.  
+The goal was to send live sensor data (“knock” events) and observe how Vespera, our shared lighting installation, responded visually to these inputs.
+
+This marked the transition from local experimentation to a **fully networked IoT system**, where every action (a knock) was translated into data, transmitted wirelessly, and turned into a visible, dynamic light response.
+
+---
+
+## 📡 System Flow
+
+1. **Arduino Connection:**  
+   The Arduino was connected to WiFi using stored credentials. Once connected, it published data to a unique MQTT topic (e.g., `student/CASA0014/luminaire/ID`).
+
+2. **Data Transmission:**  
+   When the microphone detected a valid *knock* event, it published a short data message (`"knock"`) to the broker.
+
+3. **Vespera Subscription:**  
+   Vespera subscribed to the same MQTT topic. Upon receiving the “knock” message, it lit up in a **Blue → Red → Green** colour sequence to confirm real-time interaction.
+
+4. **End-to-End Demonstration:**  
+   This setup illustrated the full IoT data cycle —  
+   **Sensor → Microcontroller → Network → Broker → Actuator (Light Response).**
+
+---
+
+## Key Learning Outcomes
+
+### **1. Real-Time Interaction**
+This exercise demonstrated how IoT devices can respond instantly to environmental or human triggers.  
+The moment a knock was detected, the Vespera light changed colour, providing immediate visual feedback and reinforcing the concept of **connected responsiveness**.
+
+### **2. Sensor–Network–Response Integration**
+By successfully linking hardware, network, and visual feedback, I learned how each layer of an IoT system must operate harmoniously:
+- The **sensor** converts a physical signal (sound or motion) into digital data.  
+- The **Arduino** processes and transmits this data via MQTT.  
+- The **network broker** acts as a bridge, routing the message.  
+- The **actuator (Vespera)** visualises the result.
+
+Any disruption in one part,connection loss, topic mismatch, or threshold error, breaks the chain, highlighting the importance of **system reliability and communication design**.
+
+### **3. Visualising the Invisible**
+One of the most powerful takeaways was understanding that **data visualisation turns invisible signals into meaningful experiences**.  
+The lights transforming with every knock made abstract, digital data visible and intuitive.  
+It demonstrated how IoT can make environmental sensing , sound, motion, presence, accessible and engaging through light-based storytelling.
+
+---
+
+## 🔍 Technical Summary
+- **Microcontroller:** Arduino MKR WiFi 1010  
+- **Sensor:** MAX4466 analog microphone (sound detection)  
+- **Communication Protocol:** MQTT via `mqtt.cetools.org`  
+- **Topic Structure:** `student/CASA0014/luminaire/{lightId}`  
+- **Output Device:** Vespera lighting system  
+- **Data Published:** “knock” event messages  
+- **Response:** Vespera lights up in a colour sequence (Blue → Red → Green)
+
+---
+
+## 🧠 Reflection
+This milestone taught me how **connectivity transforms local prototypes into distributed systems**.  
+What once existed as a closed hardware loop (sensor → LED) became part of a global network.  
+It reinforced the importance of:
+- Network reliability and latency considerations.  
+- Message formatting and topic consistency in MQTT.  
+- Designing feedback loops that are both informative and aesthetic.
+
+By witnessing my knock signals trigger light changes in real time, I began to appreciate how **IoT bridges the gap between human interaction and digital expression**.
+
+---
+ 
+> *“Data visualisation is powerful — it turns the invisible into the visible, and transforms simple signals into shared experiences.”*  
+> — *Madina Diallo*
+
+---
